@@ -1,0 +1,761 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.54/docs/schemas/v1/definitions.json#properties/Page
+
+apiVersion: v1
+kind: page
+spec:
+  title: Default page
+  alias:
+    - TWlpkO2
+  queries:
+    - name: getTaches
+      mode: mutation
+      query:
+        kind: rest
+        headers:
+          [{ name: Authorization, value: { $$jsExpression: parameters.api } }]
+        method: GET
+        searchParams: []
+        url:
+          $$jsExpression: 'parameters.all ? parameters.host+"taches?all=1" :
+            parameters.host+"taches"'
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: all
+          value:
+            $$jsExpression: switchTaches.checked
+    - name: getTache
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+`tache/${parameters.id}`
+        searchParams: []
+        headers:
+          [{ name: Authorization, value: { $$jsExpression: parameters.api } }]
+        method: GET
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: id
+          value:
+            $$jsExpression: textFieldTache.value
+    - name: addTache
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+"modifyTask/tache"
+        searchParams: []
+        headers:
+          [{ name: Authorization, value: { $$jsExpression: parameters.api } }]
+        method: POST
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`{\r
+
+              \  \"titre\": \"${parameters.titre}\",\r
+
+              \  \"description\": \"${parameters.description}\",\r
+
+              \  \"date_debut\": \"${parameters.date_debut}\",\r
+
+              \  \"date_echeance\": \"${parameters.date_fin}\",\r
+
+              \  \"complete\": \"${parameters.complete}\"\r
+
+              }`"
+          contentType: application/json
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: titre
+          value:
+            $$jsExpression: textFieldAddTache.value
+        - name: description
+          value:
+            $$jsExpression: textFieldAddTache1.value
+        - name: date_debut
+          value:
+            $$jsExpression: datePickerAddTache.value
+        - name: date_fin
+          value:
+            $$jsExpression: datePickerAddTache1.value
+        - name: complete
+          value:
+            $$jsExpression: textFieldAddTache2.value
+    - name: removeTache
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+`modifyTask/tache/${parameters.id}`
+        searchParams: []
+        headers: []
+        method: DELETE
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: id
+          value:
+            $$jsExpression: textFieldRemoveTache.value
+    - name: updateTache
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+`modifyTask/tache/${parameters.id}`
+        searchParams: []
+        headers: []
+        method: PUT
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`{\r
+
+              \  \"titre\": ${parameters.titre},\r
+
+              \  \"description\": ${parameters.description},\r
+
+              \  \"date_debut\": ${parameters.date_debut},\r
+
+              \  \"date_echeance\": ${parameters.date_fin},\r
+
+              \  \"complete\": ${parameters.complete}\r
+
+              }`"
+          contentType: application/json
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: id
+          value:
+            $$jsExpression: textFieldUpdateTache3.value
+        - name: titre
+          value:
+            $$jsExpression: textFieldUpdateTache.value
+        - name: description
+          value:
+            $$jsExpression: textFieldUpdateTache1.value
+        - name: date_debut
+          value:
+            $$jsExpression: datePickerUpdateTache.value
+        - name: date_fin
+          value:
+            $$jsExpression: datePickerUpdateTache1.value
+        - name: complete
+          value:
+            $$jsExpression: textFieldUpdateTache2.value
+    - name: updateTacheComplete
+      mode: mutation
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+`modifyTask/tache/${parameters.id}`
+        searchParams: []
+        headers: []
+        method: GET
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: id
+          value:
+            $$jsExpression: textFieldCompleteTache.value
+    - name: addSousTache
+      mode: query
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+`modifySubTask/sousTache`
+        searchParams: []
+        headers: []
+        method: GET
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: id
+          value: null
+    - name: removeSousTache
+      mode: query
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+`modifySubTask/sousTache/${parameters.id}`
+        searchParams: []
+        headers: []
+        method: GET
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: id
+          value: null
+    - name: updateSousTache
+      mode: query
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+`modifySubTask/sousTache/${parameters.id}`
+        searchParams: []
+        headers: []
+        method: GET
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: id
+          value: null
+    - name: updateSousTacheComplete
+      mode: query
+      query:
+        kind: rest
+        url:
+          $$jsExpression: parameters.host+`modifySubTask/sousTache/${parameters.id}`
+        searchParams: []
+        headers: []
+        method: GET
+      parameters:
+        - name: host
+          value:
+            $$env: API_HOST
+        - name: api
+          value:
+            $$env: API_KEY
+        - name: id
+          value: null
+  content:
+    - component: Text
+      name: textTaches
+      layout:
+        horizontalAlign: center
+      props:
+        variant: h3
+        value: Afficher toutes les tâches
+    - component: DataGrid
+      name: dataGridTaches
+      props:
+        rows:
+          $$jsExpression: getTaches.data.tache
+        columns:
+          - field: id
+            type: number
+          - field: titre
+            type: string
+    - component: PageRow
+      name: pageRowTaches
+      props:
+        justifyContent: start
+      children:
+        - component: Checkbox
+          name: switchTaches
+          layout:
+            columnSize: 0.7966215868491271
+            horizontalAlign: end
+          props:
+            mode: switch
+            label: Afficher toutes les tâches
+        - component: Button
+          name: buttonTaches
+          props:
+            fullWidth: true
+            content: Afficher tâches
+            onClick:
+              $$jsExpressionAction: getTaches.call()
+          layout:
+            columnSize: 1.2033784131508727
+            horizontalAlign: center
+    - component: Spacer
+      name: spacerTaches
+    - component: Text
+      name: textTache
+      layout:
+        horizontalAlign: center
+      props:
+        value: Afficher les détails d'une tâche
+        variant: h3
+    - component: DataGrid
+      name: dataGridTache
+      props:
+        rows:
+          $$jsExpression: getTache.data.tache
+        rowIdField: null
+        columns:
+          - field: id
+            type: number
+          - field: utilisateur_id
+            type: number
+          - field: titre
+            type: string
+          - field: description
+            type: string
+          - field: date_debut
+            type: dateTime
+          - field: date_echeance
+            type: dateTime
+          - field: complete
+            type: number
+      layout:
+        height: 360
+    - component: PageRow
+      name: pageRowTache
+      props:
+        justifyContent: start
+      children:
+        - component: Container
+          name: containerTache
+          children:
+            - component: PageRow
+              name: pageRowTache1
+              props:
+                justifyContent: start
+              children:
+                - component: Text
+                  name: textTache1
+                  layout:
+                    horizontalAlign: end
+                  props:
+                    value: "Id de la tâche:"
+                - component: TextField
+                  name: textFieldTache
+                  layout:
+                    columnSize: 1
+                  props:
+                    fullWidth: true
+        - component: Button
+          name: button1
+          layout:
+            horizontalAlign: center
+          props:
+            content: Afficher détail Tâche
+            fullWidth: true
+            onClick:
+              $$jsExpressionAction: getTache.call()
+    - component: Spacer
+      name: spacerTache
+    - component: Text
+      name: textAddTache
+      props:
+        value: Ajouter une tâche
+        variant: h3
+      layout:
+        horizontalAlign: center
+    - component: PageRow
+      name: pageRowAddTache
+      children:
+        - component: Container
+          name: containerAddTache
+          children:
+            - component: PageRow
+              name: pageRowAddTache1
+              props:
+                justifyContent: start
+              children:
+                - component: Text
+                  name: textAddTache1
+                  layout:
+                    horizontalAlign: end
+                  props:
+                    value: "Titre: "
+                - component: TextField
+                  name: textFieldAddTache
+                  props:
+                    fullWidth: true
+        - component: Container
+          name: containerAddTache1
+          children:
+            - component: PageRow
+              name: pageRowAddTache2
+              props:
+                justifyContent: start
+              children:
+                - component: Text
+                  name: textAddTache2
+                  layout:
+                    horizontalAlign: end
+                  props:
+                    value: "Description: "
+                - component: TextField
+                  name: textFieldAddTache1
+                  props:
+                    fullWidth: true
+      props:
+        justifyContent: start
+    - component: Container
+      name: containerAddTache2
+      children:
+        - component: PageRow
+          name: pageRowAddTache3
+          children:
+            - component: Text
+              name: textAddTache3
+              props:
+                value: "Date début: "
+              layout:
+                columnSize: 0.7452470974680292
+                horizontalAlign: end
+            - component: DatePicker
+              name: datePickerAddTache
+              layout:
+                columnSize: 0.7447180895734602
+              props:
+                fullWidth: true
+            - component: Container
+              name: containerAddTache3
+              layout:
+                columnSize: 1.5100348129585106
+              children:
+                - component: PageRow
+                  name: pageRowAddTache4
+                  props:
+                    justifyContent: start
+                  children:
+                    - component: Text
+                      name: textAddTache4
+                      layout:
+                        horizontalAlign: end
+                      props:
+                        value: "Date fin: "
+                    - component: DatePicker
+                      name: datePickerAddTache1
+                      props:
+                        fullWidth: true
+          props:
+            justifyContent: start
+    - component: PageRow
+      name: pageRowAddTache5
+      children:
+        - component: Text
+          name: textAddTache5
+          props:
+            value: "Complete: "
+          layout:
+            columnSize: 0.7452505710799148
+            horizontalAlign: end
+        - component: TextField
+          name: textFieldAddTache2
+          layout:
+            columnSize: 0.7447225280795721
+          props:
+            fullWidth: true
+        - component: Spacer
+          name: spacerAddTache1
+          layout:
+            columnSize: 1.5100269008405132
+      props:
+        justifyContent: start
+    - component: Button
+      name: buttonAddTache
+      props:
+        fullWidth: true
+        content: Ajouter Tâche
+        onClick:
+          $$jsExpressionAction: addTache.call()
+    - component: Spacer
+      name: spacerAddTache
+    - component: Text
+      name: textRemoveTache
+      layout:
+        horizontalAlign: center
+      props:
+        variant: h3
+        value: Supprimer une tâche
+    - component: PageRow
+      name: pageRowRemoveTache
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: textRemoveTache1
+          layout:
+            columnSize: 0.745254618930525
+            horizontalAlign: end
+          props:
+            value: "Id de la tâche: "
+        - component: TextField
+          name: textFieldRemoveTache
+          layout:
+            columnSize: 0.7447156053237783
+          props:
+            fullWidth: true
+        - component: Button
+          name: buttonRemoveTache
+          layout:
+            columnSize: 1.5100297757456964
+          props:
+            fullWidth: true
+            content: Supprimer la Tâche
+            onClick:
+              $$jsExpressionAction: removeTache.call()
+    - component: Spacer
+      name: spacerRemoveTache
+    - component: Text
+      name: textUpdateTache
+      layout:
+        horizontalAlign: center
+      props:
+        variant: h3
+        value: Modifier un tâche
+    - component: PageRow
+      name: pageRowUpdateTache
+      props:
+        justifyContent: start
+      children:
+        - component: Container
+          name: containerUpdateTache
+          children:
+            - component: PageRow
+              name: pageRowUpdateTache1
+              props:
+                justifyContent: start
+              children:
+                - component: Text
+                  name: textUpdateTache1
+                  layout:
+                    horizontalAlign: end
+                  props:
+                    value: "Titre: "
+                - component: TextField
+                  name: textFieldUpdateTache
+                  props:
+                    fullWidth: true
+        - component: Container
+          name: containerUpdateTache1
+          children:
+            - component: PageRow
+              name: pageRowUpdateTache2
+              props:
+                justifyContent: start
+              children:
+                - component: Text
+                  name: textUpdateTache2
+                  layout:
+                    horizontalAlign: end
+                  props:
+                    value: "Description: "
+                - component: TextField
+                  name: textFieldUpdateTache1
+                  props:
+                    fullWidth: true
+    - component: Container
+      name: containerUpdateTache2
+      children:
+        - component: PageRow
+          name: pageRowUpdateTache3
+          children:
+            - component: Text
+              name: textUpdateTache3
+              props:
+                value: "Date début: "
+              layout:
+                columnSize: 0.7452470974680292
+                horizontalAlign: end
+            - component: DatePicker
+              name: datePickerUpdateTache
+              layout:
+                columnSize: 0.7447180895734602
+              props:
+                fullWidth: true
+            - component: Container
+              name: containerUpdateTache3
+              layout:
+                columnSize: 1.5100348129585106
+              children:
+                - component: PageRow
+                  name: pageRowUpdateTache4
+                  props:
+                    justifyContent: start
+                  children:
+                    - component: Text
+                      name: textUpdateTache4
+                      layout:
+                        horizontalAlign: end
+                      props:
+                        value: "Date fin: "
+                    - component: DatePicker
+                      name: datePickerUpdateTache1
+                      props:
+                        fullWidth: true
+          props:
+            justifyContent: start
+    - component: PageRow
+      name: pageRowUpdateTache5
+      children:
+        - component: Text
+          name: textUpdateTache5
+          props:
+            value: "Complete: "
+          layout:
+            columnSize: 0.7452505710799148
+            horizontalAlign: end
+        - component: TextField
+          name: textFieldUpdateTache2
+          layout:
+            columnSize: 0.7447225280795721
+          props:
+            fullWidth: true
+        - component: Spacer
+          name: spacerUpdateTache1
+          layout:
+            columnSize: 1.5100269008405132
+      props:
+        justifyContent: start
+    - component: PageRow
+      name: pageRowUpdateTache6
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: textUpdateTache6
+          layout:
+            columnSize: 0.745254618930525
+            horizontalAlign: end
+          props:
+            value: "Id de la tâche: "
+        - component: TextField
+          name: textFieldUpdateTache3
+          layout:
+            columnSize: 0.7447156053237783
+          props:
+            fullWidth: true
+        - component: Button
+          name: buttonUpdateTache
+          layout:
+            columnSize: 1.5100297757456964
+          props:
+            fullWidth: true
+            content: Modifier Tâche
+            onClick:
+              $$jsExpressionAction: updateTache.call()
+    - component: Spacer
+      name: spacerUpdateTache
+    - component: Text
+      name: textCompleteTache
+      layout:
+        horizontalAlign: center
+      props:
+        value: Compléter une tâche
+        variant: h3
+    - component: PageRow
+      name: pageRowCompleteTache
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: textCompleteTache1
+          layout:
+            columnSize: 0.745254618930525
+            horizontalAlign: end
+          props:
+            value: "Id de la tâche: "
+        - component: TextField
+          name: textFieldCompleteTache
+          layout:
+            columnSize: 0.7447156053237783
+          props:
+            fullWidth: true
+        - component: Button
+          name: buttonCompleteTache
+          layout:
+            columnSize: 1.5100297757456964
+          props:
+            fullWidth: true
+            content: Compléter une tâche
+            onClick:
+              $$jsExpressionAction: updateTacheComplete.call()
+    - component: Spacer
+      name: spacerCompleteTache
+    - component: Text
+      name: text
+      props:
+        value: Ajouter une sous-tâche
+        variant: h3
+      layout:
+        horizontalAlign: center
+    - component: PageRow
+      name: pageRow
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: text1
+          layout:
+            columnSize: 1
+            horizontalAlign: end
+          props:
+            value: "Titre: "
+        - component: TextField
+          name: textField
+          props:
+            fullWidth: true
+        - component: Text
+          name: text2
+          layout:
+            horizontalAlign: end
+          props:
+            value: "Complete: "
+        - component: TextField
+          name: textField1
+          props:
+            fullWidth: true
+    - component: PageRow
+      name: pageRow1
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: text3
+          layout:
+            columnSize: 0.7433679712940493
+            horizontalAlign: end
+          props:
+            value: "Id de la tâche: "
+        - component: TextField
+          name: textField2
+          layout:
+            columnSize: 0.7460297138595897
+          props:
+            fullWidth: true
+        - component: Spacer
+          name: spacer
+          layout:
+            columnSize: 1.510602314846361
+    - component: Button
+      name: button
+      props:
+        fullWidth: true
+        content: Ajouter une sous-tâche
