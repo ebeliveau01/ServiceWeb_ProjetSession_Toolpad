@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "37b83ae6-9e38-4ec1-a572-85c669f1314c",
+		"name": "ServiceWeb_ProjetSession",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32422445"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Ajouter un utilisateur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emile@ebeliveau.org\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/user/",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nouvelle Clé Api",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emile@ebeliveau.org\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/user/apiKey",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"apiKey"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tache",
+			"item": [
+				{
+					"name": "Get All Tache",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/taches",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"taches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detail Tache",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/tache/1",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"tache",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter une tache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"titre\": \"\",\r\n  \"description\": \"\",\r\n  \"date_debut\": \"\",\r\n  \"date_echeance\": \"\",\r\n  \"complete\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/modifyTask/tache",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"modifyTask",
+								"tache"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer une tache",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/modifyTask/tacheR/1",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"modifyTask",
+								"tacheR",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier une tache",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"titre\": \"\",\r\n  \"description\": \"\",\r\n  \"date_debut\": \"\",\r\n  \"date_echeance\": \"\",\r\n  \"complete\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/modifyTask/tacheU/1",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"modifyTask",
+								"tacheU",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Compléter une tache",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/modifyTask/tacheC/1",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"modifyTask",
+								"tacheC",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sous-tache",
+			"item": [
+				{
+					"name": "Ajouter une sous-tache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tache_id\": 1,\r\n    \"titre\": \"\",\r\n    \"complete\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/modifySubTask/sousTache",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"modifySubTask",
+								"sousTache"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer une sous-tache",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/modifySubTask/sousTacheR/1",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"modifySubTask",
+								"sousTacheR",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier une sous-tache",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titre\": \"\",\r\n    \"complete\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/modifySubTask/sousTacheU/1",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"modifySubTask",
+								"sousTacheU",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Compléter une sous-tache",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "359ea691-fc44-4939-8708-8fa138e34d74",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://serviceweb-projetfinal-api.onrender.com/api/modifySubTask/sousTacheC/1",
+							"protocol": "https",
+							"host": [
+								"serviceweb-projetfinal-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"modifySubTask",
+								"sousTacheC",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

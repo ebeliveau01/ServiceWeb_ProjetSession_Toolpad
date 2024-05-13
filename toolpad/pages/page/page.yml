@@ -102,7 +102,7 @@ spec:
       query:
         kind: rest
         url:
-          $$jsExpression: parameters.host+`modifyTask/tache/${parameters.id}`
+          $$jsExpression: parameters.host+`modifyTask/tacheR/${parameters.id}`
         searchParams: []
         headers: []
         method: DELETE
@@ -121,7 +121,7 @@ spec:
       query:
         kind: rest
         url:
-          $$jsExpression: parameters.host+`modifyTask/tache/${parameters.id}`
+          $$jsExpression: parameters.host+`modifyTask/tacheU/${parameters.id}`
         searchParams: []
         headers: []
         method: PUT
@@ -172,7 +172,7 @@ spec:
       query:
         kind: rest
         url:
-          $$jsExpression: parameters.host+`modifyTask/tache/${parameters.id}`
+          $$jsExpression: parameters.host+`modifyTask/tacheC/${parameters.id}`
         searchParams: []
         headers: []
         method: GET
@@ -187,14 +187,28 @@ spec:
           value:
             $$jsExpression: textFieldCompleteTache.value
     - name: addSousTache
-      mode: query
+      mode: mutation
       query:
         kind: rest
         url:
           $$jsExpression: parameters.host+`modifySubTask/sousTache`
         searchParams: []
-        headers: []
-        method: GET
+        headers:
+          [{ name: Authorization, value: { $$jsExpression: parameters.api } }]
+        method: POST
+        body:
+          kind: raw
+          content:
+            $$jsExpression: "`{\r
+
+              \  \"tache_id\": \"${parameters.tache_id}\",\r
+
+              \  \"titre\": \"${parameters.titre}\",\r
+
+              \  \"complete\": \"${parameters.complete}\"\r
+
+              }`"
+          contentType: application/json
       parameters:
         - name: host
           value:
@@ -202,17 +216,25 @@ spec:
         - name: api
           value:
             $$env: API_KEY
-        - name: id
-          value: null
+        - name: titre
+          value:
+            $$jsExpression: textFieldAddSousTache.value
+        - name: complete
+          value:
+            $$jsExpression: textField.value
+        - name: tache_id
+          value:
+            $$jsExpression: textFieldAddSousTache1.value
     - name: removeSousTache
-      mode: query
+      mode: mutation
       query:
         kind: rest
         url:
-          $$jsExpression: parameters.host+`modifySubTask/sousTache/${parameters.id}`
+          $$jsExpression: parameters.host+`modifySubTask/sousTacheR/${parameters.id}`
         searchParams: []
-        headers: []
-        method: GET
+        headers:
+          [{ name: Authorization, value: { $$jsExpression: parameters.api } }]
+        method: DELETE
       parameters:
         - name: host
           value:
@@ -221,16 +243,18 @@ spec:
           value:
             $$env: API_KEY
         - name: id
-          value: null
+          value:
+            $$jsExpression: textFieldRemoveSousTache.value
     - name: updateSousTache
-      mode: query
+      mode: mutation
       query:
         kind: rest
         url:
-          $$jsExpression: parameters.host+`modifySubTask/sousTache/${parameters.id}`
+          $$jsExpression: parameters.host+`modifySubTask/sousTacheU/${parameters.id}`
         searchParams: []
-        headers: []
-        method: GET
+        headers:
+          [{ name: Authorization, value: { $$jsExpression: parameters.api } }]
+        method: PUT
       parameters:
         - name: host
           value:
@@ -239,16 +263,24 @@ spec:
           value:
             $$env: API_KEY
         - name: id
-          value: null
+          value:
+            $$jsExpression: textFieldUpdateSousTache.value
+        - name: titre
+          value:
+            $$jsExpression: textField2.value
+        - name: complete
+          value:
+            $$jsExpression: textField3.value
     - name: updateSousTacheComplete
-      mode: query
+      mode: mutation
       query:
         kind: rest
         url:
-          $$jsExpression: parameters.host+`modifySubTask/sousTache/${parameters.id}`
+          $$jsExpression: parameters.host+`modifySubTask/sousTacheC/${parameters.id}`
         searchParams: []
-        headers: []
-        method: GET
+        headers:
+          [{ name: Authorization, value: { $$jsExpression: parameters.api } }]
+        method: PATCH
       parameters:
         - name: host
           value:
@@ -257,7 +289,8 @@ spec:
           value:
             $$env: API_KEY
         - name: id
-          value: null
+          value:
+            $$jsExpression: textField1.value
   content:
     - component: Text
       name: textTaches
@@ -270,7 +303,7 @@ spec:
       name: dataGridTaches
       props:
         rows:
-          $$jsExpression: getTaches.data.tache
+          $$jsExpression: getTaches.data.tâches
         columns:
           - field: id
             type: number
@@ -312,7 +345,7 @@ spec:
       name: dataGridTache
       props:
         rows:
-          $$jsExpression: getTache.data.tache
+          $$jsExpression: getTache.data.tâche
         rowIdField: null
         columns:
           - field: id
@@ -700,9 +733,170 @@ spec:
     - component: Spacer
       name: spacerCompleteTache
     - component: Text
-      name: text
+      name: textAddSousTache
       props:
         value: Ajouter une sous-tâche
+        variant: h3
+      layout:
+        horizontalAlign: center
+    - component: PageRow
+      name: pageRowAddSousTache
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: textAddSousTache1
+          layout:
+            columnSize: 1.0007185064860917
+            horizontalAlign: end
+          props:
+            value: "Titre: "
+        - component: TextField
+          name: textFieldAddSousTache
+          props:
+            fullWidth: true
+          layout:
+            columnSize: 1.0000091827179496
+        - component: Text
+          name: textAddSousTache2
+          layout:
+            horizontalAlign: end
+            columnSize: 0.9992723107959586
+          props:
+            value: "Complete: "
+        - component: TextField
+          name: textField
+          props:
+            fullWidth: true
+    - component: PageRow
+      name: pageRowAddSousTache1
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: textAddSousTache3
+          layout:
+            columnSize: 0.7433679712940493
+            horizontalAlign: end
+          props:
+            value: "Id de la tâche: "
+        - component: TextField
+          name: textFieldAddSousTache1
+          layout:
+            columnSize: 0.7460297138595897
+          props:
+            fullWidth: true
+        - component: Spacer
+          name: spacerAddSousTache
+          layout:
+            columnSize: 1.510602314846361
+    - component: Button
+      name: buttonAddSousTache
+      props:
+        fullWidth: true
+        content: Ajouter une sous-tâche
+        onClick:
+          $$jsExpressionAction: addSousTache.call()
+    - component: Spacer
+      name: spacerRemoveSousTache
+    - component: Text
+      name: textRemoveSousTache
+      layout:
+        horizontalAlign: center
+      props:
+        variant: h3
+        value: Supprimer une sous-tâche
+    - component: PageRow
+      name: pageRowRemoveSousTache
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: textRemoveSousTache1
+          layout:
+            horizontalAlign: end
+          props:
+            value: "Id de la sous-tâche: "
+        - component: TextField
+          name: textFieldRemoveSousTache
+          layout:
+            columnSize: 1
+          props:
+            fullWidth: true
+        - component: Button
+          name: buttonRemoveSousTache
+          props:
+            fullWidth: true
+            content: Supprimer une sous-tâche
+            onClick:
+              $$jsExpressionAction: removeSousTache.call()
+    - component: Spacer
+      name: spacerRemoveSousTache1
+    - component: Text
+      name: textUpdateSousTache
+      props:
+        value: Modifier une sous-tâche
+        variant: h3
+      layout:
+        horizontalAlign: center
+    - component: PageRow
+      name: pageRowUpdateSousTache
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: textUpdateSousTache1
+          layout:
+            horizontalAlign: end
+          props:
+            value: "Id de la sous-tâche: "
+        - component: TextField
+          name: textFieldUpdateSousTache
+          props:
+            fullWidth: true
+        - component: Text
+          name: text2
+          layout:
+            horizontalAlign: end
+          props:
+            value: "titre: "
+        - component: TextField
+          name: textField2
+          props:
+            fullWidth: true
+    - component: PageRow
+      name: pageRowUpdateSousTache1
+      props:
+        justifyContent: start
+      children:
+        - component: Text
+          name: text3
+          layout:
+            columnSize: 0.7452500467670391
+            horizontalAlign: end
+          props:
+            value: "Complete: "
+        - component: TextField
+          name: textField3
+          layout:
+            columnSize: 0.7447220444344886
+          props:
+            fullWidth: true
+        - component: Button
+          name: button
+          layout:
+            columnSize: 1.5100279087984723
+          props:
+            fullWidth: true
+            content: Modifier une sous-tâche
+            onClick:
+              $$jsExpressionAction: updateSousTache.call()
+    - component: Spacer
+      name: spacerUpdateSousTache
+    - component: Text
+      name: text
+      props:
+        value: Compléter une sous-tâche
         variant: h3
       layout:
         horizontalAlign: center
@@ -714,48 +908,23 @@ spec:
         - component: Text
           name: text1
           layout:
-            columnSize: 1
-            horizontalAlign: end
+            columnSize: 0.745254618930525
           props:
-            value: "Titre: "
-        - component: TextField
-          name: textField
-          props:
-            fullWidth: true
-        - component: Text
-          name: text2
-          layout:
-            horizontalAlign: end
-          props:
-            value: "Complete: "
+            value: "Id de la sous-tâche: "
         - component: TextField
           name: textField1
+          layout:
+            columnSize: 0.7447156053237783
           props:
             fullWidth: true
-    - component: PageRow
-      name: pageRow1
-      props:
-        justifyContent: start
-      children:
-        - component: Text
-          name: text3
+        - component: Button
+          name: button2
           layout:
-            columnSize: 0.7433679712940493
-            horizontalAlign: end
-          props:
-            value: "Id de la tâche: "
-        - component: TextField
-          name: textField2
-          layout:
-            columnSize: 0.7460297138595897
+            columnSize: 1.5100297757456964
           props:
             fullWidth: true
-        - component: Spacer
-          name: spacer
-          layout:
-            columnSize: 1.510602314846361
-    - component: Button
-      name: button
-      props:
-        fullWidth: true
-        content: Ajouter une sous-tâche
+            content: Compléter une sous-tâche
+            onClick:
+              $$jsExpressionAction: updateSousTacheComplete.call()
+    - component: Spacer
+      name: spacer
